@@ -9,3 +9,4 @@ A solution to a generalized 8 queens puzzle
 * Set 1 GB of heap size
 * Run the tests or the class ChessEngine
 
+a jdk/jre7 or later is required to build/run the project
