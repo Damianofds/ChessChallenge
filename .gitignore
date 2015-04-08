@@ -1,4 +1,11 @@
+
+# exclude eclipse files
+.settings
+.classpath
+.project
+
 *.class
+bin
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
