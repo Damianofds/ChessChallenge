@@ -19,7 +19,7 @@ public class ChessChallengeConfigurationsTest extends Assert{
         // int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(numRow, numCol, 2, 0, 0, 1, 0);
         long start = System.currentTimeMillis();
-        int numberOfSolutions = ce.run();
+        int numberOfSolutions = ce.search();
         assertEquals(4, numberOfSolutions);
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
@@ -32,13 +32,13 @@ public class ChessChallengeConfigurationsTest extends Assert{
         // int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
          ChessEngine ce = new ChessEngine(numRow, numCol, 0, 0, 0, 2, 4);
          long start = System.currentTimeMillis();
-         int numberOfSolutions = ce.run();
+         int numberOfSolutions = ce.search();
          assertEquals(8, numberOfSolutions);
          long end = System.currentTimeMillis();
          System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
-    @Ignore // It takes a lot of time
+//    @Ignore // It takes too much time
     @Test
     public void test_7x7_7P() {
         int numRow = 7;
@@ -46,8 +46,8 @@ public class ChessChallengeConfigurationsTest extends Assert{
         // int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(numRow, numCol, 2, 2, 2, 0, 1);
         long start = System.currentTimeMillis();
-        int numberOfSolutions = ce.run();
-        assertEquals(1403598, numberOfSolutions);
+        int numberOfSolutions = ce.search();
+        assertEquals(3062636, numberOfSolutions);
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
@@ -57,31 +57,31 @@ public class ChessChallengeConfigurationsTest extends Assert{
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(7, 7, 0, 7, 0, 0, 0);
         long start = System.currentTimeMillis();
-        int numberOfSolutions = ce.run();
+        int numberOfSolutions = ce.search();
         assertEquals(40, numberOfSolutions);
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
-    @Ignore // It takes a lot of time
+//    @Ignore // It takes too much time
     @Test    
     public void test_8Queens() {
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(8, 8, 0, 8, 0, 0, 0);
         long start = System.currentTimeMillis();
-        int numberOfSolutions = ce.run();
+        int numberOfSolutions = ce.search();
         assertEquals(92, numberOfSolutions);
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
-    @Ignore // It takes a lot of time
+//    @Ignore // It takes too much time
     @Test
     public void test_9Queens() {
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(9, 9, 0, 9, 0, 0, 0);
         long start = System.currentTimeMillis();
-        int numberOfSolutions = ce.run();
+        int numberOfSolutions = ce.search();
         assertEquals(352, numberOfSolutions);
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");

@@ -20,19 +20,19 @@ public class ChessEngine {
     /**
      * the width of the chessboard
      */
-    private int boardWidth;
+    private final int boardWidth;
 
     /**
      * the height of the chessboard
      */
-    private int boardHeight;
+    private final int boardHeight;
 
     /**
      * The array that holds the chessmen involved for the current puzzle instance
      */
-    private Chessman[] chessArray;
+    private final Chessman[] chessArray;
 
-    private int chessArraySize;
+    private final int chessArraySize;
 
     /**
      * This list stores all the valid solutions found for the puzzle
@@ -57,7 +57,7 @@ public class ChessEngine {
         }
     }
 
-    public int run() {
+    public int search() {
 
         finalValidConfigsList = new ArrayList<>();
         countSolutions();
@@ -128,7 +128,7 @@ public class ChessEngine {
         // int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(numRow, numCol, 2, 2, 2, 0, 1);
         long start = System.currentTimeMillis();
-        int numOfSolutions = ce.run();
+        int numOfSolutions = ce.search();
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
         System.out.println("Number of solutions: '" + numOfSolutions + "'");

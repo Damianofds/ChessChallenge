@@ -182,11 +182,15 @@ public abstract class Chessman implements Cloneable{
     }
     
     public static int hashPosition(int x, int y){
+        return ("(" + x + "," + y + ")").hashCode();
+    }
+    
+    public static int hashPosition2(int x, int y){
         int hashResult = 67;
         hashResult = 37 * hashResult + x*10;
         hashResult = 37 * hashResult + y*20;
         return hashResult;
-    }
+    }    
     
     @Override
     public Object clone(){

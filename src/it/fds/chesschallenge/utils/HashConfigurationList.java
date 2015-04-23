@@ -45,38 +45,38 @@ public class HashConfigurationList<T> extends ArrayList<Chessman> {
                 map.get(key).add(cp.hashPosition());
             }
         }
-        int [] finalHashArray = new int[5];
-        Integer king = hashSortedList(map.get("King"), "King");
+        long [] finalHashArray = new long[5];
+        Long king = hashSortedList(map.get("King"), "King");
         finalHashArray[0] = (king != null)?king:0;
-        Integer queen = hashSortedList(map.get("Queen"), "Queen");
+        Long queen = hashSortedList(map.get("Queen"), "Queen");
         finalHashArray[1] = (queen != null)?queen:0;
-        Integer bishop = hashSortedList(map.get("Bishop"), "Bishop");
+        Long bishop = hashSortedList(map.get("Bishop"), "Bishop");
         finalHashArray[2] = (bishop != null)?bishop:0;
-        Integer rook = hashSortedList(map.get("Rook"), "Rook");
+        Long rook = hashSortedList(map.get("Rook"), "Rook");
         finalHashArray[3] = (rook != null)?rook:0;
-        Integer knight = hashSortedList(map.get("Knight"), "Knight");
+        Long knight = hashSortedList(map.get("Knight"), "Knight");
         finalHashArray[4] = (knight != null)?knight:0;
         
-        int finalHash = 1;
+        Long finalHash = 17l;
         for(int i=0; i<finalHashArray.length; i++){
             finalHash = 37 * finalHash + finalHashArray[i];
         }
-        
-        return finalHash;
+        return finalHash.intValue();
     }
     
-    private Integer hashSortedList(List<Integer> l, String s){
+    private Long hashSortedList(List<Integer> l, String s){
         if(l==null){
             return null;
         }
         Collections.sort(l);
-        int hashResult = 1;
-        hashResult = 37 * hashResult + s.hashCode();
-        hashResult = 37 * hashResult + l.size();
+        StringBuffer stringToHash = new StringBuffer();
+        stringToHash.append(s).append("-").append(l.size()).append("-");
         for(int i=0; i<l.size(); i++){
-            hashResult += 37 * hashResult + l.get(i);
+            stringToHash.append(l.get(i)).append("-");
         }
-        return hashResult;
+        return new Integer(stringToHash.toString().hashCode()).longValue();
     }
+    
+
     
 }

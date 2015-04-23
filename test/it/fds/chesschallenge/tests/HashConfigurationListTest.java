@@ -1,5 +1,8 @@
 package it.fds.chesschallenge.tests;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import it.fds.chesschallenge.model.Bishop;
 import it.fds.chesschallenge.model.Chessman;
 import it.fds.chesschallenge.model.King;
@@ -148,4 +151,22 @@ public class HashConfigurationListTest extends Assert {
 
     }
 
+    @Test
+    public void HashPositionTest(){
+        int n = 1050;
+        int m = 1050;
+        int counter = 0;
+        Set<Integer> positionsSet = new HashSet<Integer>();
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                Chessman cp = new Rook(i*j);
+                cp.setPos(i, j);
+                int hashCode = cp.hashPosition();
+                boolean isAdded = positionsSet.add(hashCode);
+                assertTrue(isAdded);
+                counter++;
+            }
+        }
+        assertEquals(counter, n*m);
+    }
 }
