@@ -3,6 +3,9 @@ package it.fds.chesschallenge.tests;
 import it.fds.chesschallenge.model.Chessman;
 import it.fds.chesschallenge.model.Knight;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,54 +21,71 @@ public class IsThreateningTest extends Assert {
 
     @Test
     public void testKnight() {
-        Integer positionsToCheckTrue[][] = new Integer[9][2];
-        Integer positionsToCheckFalse[][] = new Integer[3][2];
-
-        Integer[] res1 = { 0, 1 };
-        Integer[] res2 = { 0, 3 };
-        Integer[] res3 = { 1, 0 };
-        Integer[] res4 = { 1, 4 };
-        Integer[] res5 = { 2, 2 };// Move this in the other array!!!
-        Integer[] res6 = { 3, 0 };
-        Integer[] res7 = { 3, 4 };
-        Integer[] res8 = { 4, 1 };
-        Integer[] res9 = { 4, 3 };
-
-        positionsToCheckTrue[0] = res1;
-        positionsToCheckTrue[1] = res2;
-        positionsToCheckTrue[2] = res3;
-        positionsToCheckTrue[3] = res4;
-        positionsToCheckTrue[4] = res5;
-        positionsToCheckTrue[5] = res6;
-        positionsToCheckTrue[6] = res7;
-        positionsToCheckTrue[7] = res8;
-        positionsToCheckTrue[8] = res9;
-
-        Integer[] res10 = { 0, 2 };
-        Integer[] res11 = { 3, 1 };
-        Integer[] res12 = { 4, 4 };
-
-        positionsToCheckFalse[0] = res10;
-        positionsToCheckFalse[1] = res11;
-        positionsToCheckFalse[2] = res12;
-
-        int matrixSize = 5;
         Chessman cp = new Knight(1);
+        
+        int matrixSize = 5;
+        cp.setPos(0, 0);
+        
+        List<Integer[]> positions = new ArrayList<>();
+        for(int i=0; i<matrixSize; i++){
+            for(int j=0; j<matrixSize; j++){
+                Integer [] pos = { i , j };
+                positions.add(pos);
+            }
+        }
+        
+        assertTrue(!cp.isOutsideChessboard(cp.getX(), cp.getY(), matrixSize, matrixSize));
+        assertEquals(2, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        
+        cp.setPos(1, 1);
+        assertEquals(4, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        cp.setPos(3, 3);
+        assertEquals(4, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
         cp.setPos(2, 2);
-        assertTrue(!cp.isOutsideChessboard(cp.getX(), cp.getY(), 5, 5));
-
+        assertEquals(8, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        cp.setPos(4, 4);
+        assertEquals(2, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        cp.setPos(0, 3);
+        assertEquals(3, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        
+        matrixSize = 8;
+        cp.setPos(3, 3);
+        positions = new ArrayList<>();
+        for(int i=0; i<matrixSize; i++){
+            for(int j=0; j<matrixSize; j++){
+                Integer [] pos = { i , j };
+                positions.add(pos);
+            }
+        }
+        assertEquals(8, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        
+        matrixSize = 3;
+        cp.setPos(1, 1);
+        positions = new ArrayList<>();
+        for(int i=0; i<matrixSize; i++){
+            for(int j=0; j<matrixSize; j++){
+                Integer [] pos = { i , j };
+                positions.add(pos);
+            }
+        }
+        assertEquals(0, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+    }
+    
+    @Test
+    public void testOutsideChessboard5x5() {
+        Chessman cp = new Knight(1);
+        
+//        int matrixSize = 5;
+        cp.setPos(2, 2);
+        
         assertTrue(!cp.isOutsideChessboard(0, 0, 5, 5));
         assertTrue(cp.isOutsideChessboard(-1, 0, 5, 5));
         assertTrue(cp.isOutsideChessboard(-1, -1, 5, 5));
         assertTrue(cp.isOutsideChessboard(4, 5, 5, 5));
         assertTrue(cp.isOutsideChessboard(5, 4, 5, 5));
         assertTrue(!cp.isOutsideChessboard(4, 4, 5, 5));
-
-        assertEquals(8, testIsThreatening(positionsToCheckTrue, cp, matrixSize));
-        assertEquals(0, testIsThreatening(positionsToCheckFalse, cp, matrixSize));
-
     }
-
+    
     public int testIsThreatening(Integer positionsToCheck[][], Chessman cp, int positionMatrixSize) {
         if (positionsToCheck == null || positionsToCheck.length <= 0
                 || positionsToCheck[0].length != 2) {
