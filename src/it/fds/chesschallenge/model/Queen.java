@@ -20,14 +20,6 @@ public class Queen extends Chessman {
      */
     @Override
     public boolean isThreatening(boolean[][] positionMatrix) {
-        return checkAlongPlus(true, positionMatrix) || checkAlongCross(true, positionMatrix);
-    }
-
-    /* (non-Javadoc)
-     * @see it.fds.chesschallenge.model.Chessman#checkForTreaths(int, int, boolean[][])
-     */
-    @Override
-    protected boolean checkForTreaths(int x, int y, boolean[][] positionMatrix) {
-        throw new RuntimeException("This method hasn't been implemented yet...");
+        return checkXY(true, positionMatrix) || checkDiagonal(true, positionMatrix);
     }
 }

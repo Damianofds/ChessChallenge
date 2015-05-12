@@ -20,15 +20,7 @@ public class Bishop extends Chessman {
      */
     @Override
     public boolean isThreatening(boolean[][] positionMatrix) {
-        return checkAlongCross(true, positionMatrix);
-    }
-
-    /* (non-Javadoc)
-     * @see it.fds.chesschallenge.model.Chessman#checkForTreaths(int, int, boolean[][])
-     */
-    @Override
-    protected boolean checkForTreaths(int x, int y, boolean[][] positionMatrix) {
-        throw new RuntimeException("This method hasn't been implemented yet...");
+        return checkDiagonal(true, positionMatrix);
     }
 
 }

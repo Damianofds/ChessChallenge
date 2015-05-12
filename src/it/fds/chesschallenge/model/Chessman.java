@@ -11,9 +11,9 @@ public abstract class Chessman implements Cloneable{
 
     private int id;
 
-    private int x;
+    protected int x;
 
-    private int y;
+    protected int y;
 
     protected Chessman(int id){
         this.id = id;
@@ -21,7 +21,14 @@ public abstract class Chessman implements Cloneable{
     
     public abstract boolean isThreatening(boolean[][] positionMatrix);
     
-    public boolean checkAlongPlus(boolean goDeep, boolean positionMatrix[][]){
+    /**
+     * Checks if at least one more chessman is placed along the X or Y axes where <b>this</b> chessman is placed 
+     * 
+     * @param goDeep set the flag to true to check all the tiles along x and y, false just to check for the adjacent tiles
+     * @param positionMatrix the representation of the chessmen positions over the chessboard as a boolean matrix
+     * @return true if at least one chessman is found on the checked tiles, false otherwise
+     */
+    public boolean checkXY(boolean goDeep, boolean positionMatrix[][]){
         int n = positionMatrix.length;
         int m = positionMatrix[0].length;
         if(!goDeep){
@@ -39,8 +46,15 @@ public abstract class Chessman implements Cloneable{
         }
         return false;
     }
-    
-    public boolean checkAlongCross(boolean goDeep, boolean positionMatrix[][]){
+
+    /**
+     * Checks if at least another one chessman is placed along the two diagonals built from <b>this</b> chessman position 
+     * 
+     * @param goDeep set the flag to true to check all the tiles along x and y, false just to check for the adjacent tiles
+     * @param positionMatrix the representation of the chessmen positions over the chessboard as a boolean matrix
+     * @return true if at least one chessman is found on the checked tiles, false otherwise
+     */
+    public boolean checkDiagonal(boolean goDeep, boolean positionMatrix[][]){
         int n = positionMatrix.length;
         int m = positionMatrix[0].length;
         
@@ -79,57 +93,8 @@ public abstract class Chessman implements Cloneable{
         return false;
     }
     
-    public boolean checkAlongCircle(boolean positionMatrix[][]){
-        
-        int x1 = x-2;
-        int y1 = y-1;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x-1;
-        y1 = y-2;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x+2;
-        y1 = y+1;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x+1;
-        y1 = y+2;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x-2;
-        y1 = y+1;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x-1;
-        y1 = y+2;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x+2;
-        y1 = y-1;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        
-        x1 = x+1;
-        y1 = y-2;
-        if(checkForTreaths(x1, y1, positionMatrix)){
-            return true;
-        }
-        return false;
-        
+    public boolean isOutsideChessboard(int n, int m){
+        return isOutsideChessboard(x, y, n, m);
     }
     
     public boolean isOutsideChessboard(int x, int y, int n, int m){
@@ -138,8 +103,6 @@ public abstract class Chessman implements Cloneable{
         }
         return false;
     }
-    
-    protected abstract boolean checkForTreaths(int x, int y, boolean positionMatrix[][]);
     
     public int getId() {
         return id;
@@ -197,7 +160,7 @@ public abstract class Chessman implements Cloneable{
         try {
             return super.clone();
         } catch (CloneNotSupportedException e) {
-            // Swallow thr exception
+            // Swallow the exception
         }
         return new Object();
     }
@@ -212,7 +175,6 @@ public abstract class Chessman implements Cloneable{
     
     @Override
     public String toString(){
-        //return "(" + this.getClass().getSimpleName() + ") ID:'" + id + "' x:'" + x + "' y:'" + y + "'"/*\n*/; 
         return "(" + this.getClass().getSimpleName() + ") x:'" + x + "'y:'" + y + "'"/*\n*/;
     }
     

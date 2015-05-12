@@ -63,7 +63,7 @@ public class ChessChallengeConfigurationsTest extends Assert{
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
-//    @Ignore // It takes too much time
+    @Ignore // It takes too much time
     @Test    
     public void test_8Queens() {
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
@@ -76,7 +76,7 @@ public class ChessChallengeConfigurationsTest extends Assert{
     }
 
 //    @Ignore // It takes too much time
-    @Test
+//    @Test
     public void test_9Queens() {
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(9, 9, 0, 9, 0, 0, 0);
