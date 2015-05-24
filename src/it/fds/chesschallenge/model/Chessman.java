@@ -1,6 +1,7 @@
 package it.fds.chesschallenge.model;
 
 
+
 /**
  * @author DamianoG
  * 
@@ -123,6 +124,21 @@ public abstract class Chessman implements Cloneable{
     public void setPos(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+    
+    /**
+     * Set the position of this chessman taking in input an array which its length is equals to 2
+     * @param pos a not null 2-length array with all positions not null.
+     */
+    public void setPos(Integer position[]) {
+        if(position==null){
+            throw new IllegalArgumentException("the position array is null...");
+        }
+        if(position.length!=2 || position[0]==null || position[1]==null){
+            throw new IllegalArgumentException("The position array is not valid, value is: '" + position.toString() + "'");
+        }
+        this.x = position[0];
+        this.y = position[1];
     }
     
     @Override

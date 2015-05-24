@@ -2,7 +2,7 @@ package it.fds.chesschallenge.engine;
 
 import it.fds.chesschallenge.model.Chessman;
 import it.fds.chesschallenge.utils.HashConfigurationList;
-import it.fds.chesschallenge.utils.MatrixArrayUtils;
+import it.fds.chesschallenge.utils.ChessboardUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public class ChessEngine {
             int numOfBishops, int numOfRooks, int numOfKnights) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
-        this.chessArray = MatrixArrayUtils.buildChessArray(numOfKings, numOfQueens, numOfBishops, numOfRooks, numOfKnights);
+        this.chessArray = ChessboardUtils.buildChessArray(numOfKings, numOfQueens, numOfBishops, numOfRooks, numOfKnights);
         chessArraySize = chessArray.length;
         finalValidConfigsList = new ArrayList<>();
         updatedValidConfigsMap = new HashMap<>();
@@ -88,9 +88,9 @@ public class ChessEngine {
         for (int i = 0; i < boardWidth; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 cp.setPos(i, j);
-                HashConfigurationList<Chessman> clonedConfig = MatrixArrayUtils.cloneChessArray(validConfig);
+                HashConfigurationList<Chessman> clonedConfig = ChessboardUtils.cloneChessArray(validConfig);
                 clonedConfig.add((Chessman) cp.clone());
-                boolean positionMatrix[][] = MatrixArrayUtils.configurePositionMatrix(clonedConfig,
+                boolean positionMatrix[][] = ChessboardUtils.configurePositionMatrix(clonedConfig,
                         boardWidth, boardHeight);
                 boolean isThisConfigValid = true;
                 if (positionMatrix != null) {

@@ -7,6 +7,7 @@ import it.fds.chesschallenge.model.Knight;
 import it.fds.chesschallenge.model.Queen;
 import it.fds.chesschallenge.model.Rook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author DamianoG
  * 
  */
-public class MatrixArrayUtils {
+public class ChessboardUtils {
 
     public static Chessman[] buildChessArray(int numOfKings, int numOfQueens, int numOfBishops,
             int numOfRooks, int numOfKnights) {
@@ -64,6 +65,25 @@ public class MatrixArrayUtils {
         return positionMatrix;
     }
 
+    /**
+     * Given the dimensions of a N x M Chessboard this method build an array of all the valid positions over it.
+     * 
+     * @param matrixN the N size of a N x M matrix
+     * @param matrixM the M size of a N x M matrix
+     * 
+     * @return the computed position array
+     */
+    public static Integer[][] buildPositionsArray(int matrixN, int matrixM){
+        List<Integer[]> positions = new ArrayList<>();
+        for(int i=0; i<matrixN; i++){
+            for(int j=0; j<matrixM; j++){
+                Integer [] pos = { i , j };
+                positions.add(pos);
+            }
+        }
+        return positions.toArray(new Integer[matrixN*matrixM][2]);
+    }
+    
     @Deprecated
     public static boolean[][] positionMatrixClone(boolean[][] original) {
         if (original == null) {
