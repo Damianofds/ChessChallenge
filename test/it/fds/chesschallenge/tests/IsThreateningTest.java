@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
+ * This test suite validates the implementation provided by all of the {@link Chessman} specialized classes of the {@link Chessman}{@link #IsThreateningTest()} method.
+ * 
  * @author DamianoG
  * 
  */
@@ -26,49 +28,50 @@ public class IsThreateningTest extends Assert {
         int matrixSize = 5;
         cp.setPos(0, 0);
         
-        List<Integer[]> positions = new ArrayList<>();
-        for(int i=0; i<matrixSize; i++){
-            for(int j=0; j<matrixSize; j++){
-                Integer [] pos = { i , j };
-                positions.add(pos);
-            }
-        }
+        Integer[][] positions = buildPositionsArray(matrixSize, matrixSize);
         
         assertTrue(!cp.isOutsideChessboard(cp.getX(), cp.getY(), matrixSize, matrixSize));
-        assertEquals(2, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        assertEquals(2, testIsThreatening(positions, cp, matrixSize));
         
         cp.setPos(1, 1);
-        assertEquals(4, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        assertEquals(4, testIsThreatening(positions, cp, matrixSize));
         cp.setPos(3, 3);
-        assertEquals(4, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        assertEquals(4, testIsThreatening(positions, cp, matrixSize));
         cp.setPos(2, 2);
-        assertEquals(8, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        assertEquals(8, testIsThreatening(positions, cp, matrixSize));
         cp.setPos(4, 4);
-        assertEquals(2, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        assertEquals(2, testIsThreatening(positions, cp, matrixSize));
         cp.setPos(0, 3);
-        assertEquals(3, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        assertEquals(3, testIsThreatening(positions, cp, matrixSize));
         
         matrixSize = 8;
         cp.setPos(3, 3);
-        positions = new ArrayList<>();
-        for(int i=0; i<matrixSize; i++){
-            for(int j=0; j<matrixSize; j++){
-                Integer [] pos = { i , j };
-                positions.add(pos);
-            }
-        }
-        assertEquals(8, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        positions = buildPositionsArray(matrixSize, matrixSize);
+        assertEquals(8, testIsThreatening(positions, cp, matrixSize));
         
         matrixSize = 3;
         cp.setPos(1, 1);
-        positions = new ArrayList<>();
-        for(int i=0; i<matrixSize; i++){
-            for(int j=0; j<matrixSize; j++){
+        positions = buildPositionsArray(matrixSize, matrixSize);
+        assertEquals(0, testIsThreatening(positions, cp, matrixSize));
+    }
+    
+    /**
+     * Given the dimensions of a N x M Chessboard this method build an array of all the valid positions over it.
+     * 
+     * @param matrixN the N size of a N x M matrix
+     * @param matrixM the M size of a N x M matrix
+     * 
+     * @return the computed position array
+     */
+    public Integer[][] buildPositionsArray(int matrixN, int matrixM){
+        List<Integer[]> positions = new ArrayList<>();
+        for(int i=0; i<matrixN; i++){
+            for(int j=0; j<matrixM; j++){
                 Integer [] pos = { i , j };
                 positions.add(pos);
             }
         }
-        assertEquals(0, testIsThreatening((positions.toArray(new Integer[matrixSize*matrixSize][2])), cp, matrixSize));
+        return positions.toArray(new Integer[matrixN*matrixM][2]);
     }
     
     @Test
