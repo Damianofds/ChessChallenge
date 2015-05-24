@@ -10,8 +10,16 @@ import org.junit.Test;
  * @author DamianoG
  * 
  */
-public class ChessChallengeConfigurationsTest extends Assert{
+public class ChessChallengeTest extends Assert{
 
+    /**
+     * Test the challenge engine against the configuration below
+     * <ul>
+     *    <li>3 x 3 chessboard<\li>
+     *    <li>2 Kings<\li>
+     *    <li>1 Rook<\li>
+     * </ul>
+     */
     @Test
     public void test_3x3_3P() {
         int numRow = 3;
@@ -24,7 +32,15 @@ public class ChessChallengeConfigurationsTest extends Assert{
         long end = System.currentTimeMillis();
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
-
+    
+    /**
+     * Test the challenge engine against the configuration below
+     * <ul>
+     *    <li>4 x 4 chessboard<\li>
+     *    <li>2 Rooks<\li>
+     *    <li>4 Knights<\li>
+     * </ul>
+     */
     @Test
     public void test_4x4_6P() {
          int numRow = 4;
@@ -38,6 +54,16 @@ public class ChessChallengeConfigurationsTest extends Assert{
          System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
+    /**
+     * Test the challenge engine against the configuration below
+     * <ul>
+     *    <li>7 x 7 chessboard<\li>
+     *    <li>2 Kings<\li>
+     *    <li>2 Queens<\li>
+     *    <li>2 Bishops<\li>
+     *    <li>1 Knight<\li>
+     * </ul>
+     */
 //    @Ignore // It takes too much time
     @Test
     public void test_7x7_7P() {
@@ -52,6 +78,13 @@ public class ChessChallengeConfigurationsTest extends Assert{
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
+    /**
+     * Test the challenge engine against the configuration below
+     * <ul>
+     *    <li>7 x 7 chessboard<\li>
+     *    <li>7 Queens<\li>
+     * </ul>
+     */
     @Test
     public void test_7Queens() {
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
@@ -63,6 +96,13 @@ public class ChessChallengeConfigurationsTest extends Assert{
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
+    /**
+     * Test the challenge engine against the configuration below
+     * <ul>
+     *    <li>8 x 8 chessboard<\li>
+     *    <li>8Queens<\li>
+     * </ul>
+     */
     @Ignore // It takes too much time
     @Test    
     public void test_8Queens() {
@@ -75,6 +115,13 @@ public class ChessChallengeConfigurationsTest extends Assert{
         System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
     }
 
+    /**
+     * Test the challenge engine against the configuration below
+     * <ul>
+     *    <li>9 x 9 chessboard<\li>
+     *    <li>9 Queens<\li>
+     * </ul>
+     */
     @Ignore // It takes too much time
 //    @Test
     public void test_9Queens() {

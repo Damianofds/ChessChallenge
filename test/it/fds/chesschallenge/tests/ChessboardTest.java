@@ -19,8 +19,8 @@
  */
 package it.fds.chesschallenge.tests;
 
-import it.fds.chesschallenge.model.Chessman;
-import it.fds.chesschallenge.model.Knight;
+import it.fds.chesschallenge.model.chessman.Chessman;
+import it.fds.chesschallenge.model.chessman.Knight;
 import it.fds.chesschallenge.utils.ChessboardUtils;
 
 import org.junit.Assert;

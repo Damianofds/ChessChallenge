@@ -1,11 +1,11 @@
 package it.fds.chesschallenge.tests;
 
-import it.fds.chesschallenge.model.Bishop;
-import it.fds.chesschallenge.model.Chessman;
-import it.fds.chesschallenge.model.King;
-import it.fds.chesschallenge.model.Knight;
-import it.fds.chesschallenge.model.Queen;
-import it.fds.chesschallenge.model.Rook;
+import it.fds.chesschallenge.model.chessman.Bishop;
+import it.fds.chesschallenge.model.chessman.Chessman;
+import it.fds.chesschallenge.model.chessman.King;
+import it.fds.chesschallenge.model.chessman.Knight;
+import it.fds.chesschallenge.model.chessman.Queen;
+import it.fds.chesschallenge.model.chessman.Rook;
 import it.fds.chesschallenge.utils.ChessboardUtils;
 import org.junit.Assert;
 import org.junit.Test;

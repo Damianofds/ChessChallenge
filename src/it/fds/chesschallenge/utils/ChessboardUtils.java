@@ -1,14 +1,14 @@
 package it.fds.chesschallenge.utils;
 
-import it.fds.chesschallenge.model.Bishop;
-import it.fds.chesschallenge.model.Chessman;
-import it.fds.chesschallenge.model.King;
-import it.fds.chesschallenge.model.Knight;
-import it.fds.chesschallenge.model.Queen;
-import it.fds.chesschallenge.model.Rook;
+import it.fds.chesschallenge.model.chessman.Bishop;
+import it.fds.chesschallenge.model.chessman.Chessman;
+import it.fds.chesschallenge.model.chessman.King;
+import it.fds.chesschallenge.model.chessman.Knight;
+import it.fds.chesschallenge.model.chessman.Queen;
+import it.fds.chesschallenge.model.chessman.Rook;
+import it.fds.chesschallenge.model.configuration.Configuration;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,15 +45,7 @@ public class ChessboardUtils {
         return chessArray;
     }
 
-    public static HashConfigurationList<Chessman> cloneChessArray(List<Chessman> chessArray) {
-        HashConfigurationList<Chessman> newChessArray = new HashConfigurationList<>();
-        for (Chessman cp : chessArray) {
-            newChessArray.add((Chessman) cp.clone());
-        }
-        return newChessArray;
-    }
-
-    public static boolean[][] configurePositionMatrix(List<Chessman> configuration, int boardWidth,
+    public static boolean[][] configurePositionMatrix(Configuration configuration, int boardWidth,
             int boardHeight) {
         boolean positionMatrix[][] = new boolean[boardWidth][boardHeight];
         for (Chessman cp : configuration) {
@@ -82,58 +74,5 @@ public class ChessboardUtils {
             }
         }
         return positions.toArray(new Integer[matrixN*matrixM][2]);
-    }
-    
-    @Deprecated
-    public static boolean[][] positionMatrixClone(boolean[][] original) {
-        if (original == null) {
-            return null;
-        }
-
-        final boolean[][] result = new boolean[original.length][];
-        for (int i = 0; i < original.length; i++) {
-            result[i] = Arrays.copyOf(original[i], original[i].length);
-            // For Java versions prior to Java 6 use the next:
-            // System.arraycopy(original[i], 0, result[i], 0, original[i].length);
-        }
-        return result;
-    }
-
-    @Deprecated
-    public static String positionMatrixToString(boolean positionMatrix[][]) {
-        StringBuffer sb = new StringBuffer();
-        sb.append("[N='").append(positionMatrix.length).append("' M='")
-                .append(positionMatrix[0].length).append("' ");
-        for (int i = 0; i < positionMatrix.length; i++) {
-            for (int j = 0; j < positionMatrix[0].length; j++) {
-                if (positionMatrix[i][j]) {
-                    sb.append("(").append(i).append(",").append(j).append(") ");
-                }
-            }
-        }
-        sb.append("]");
-        return sb.toString();
-    }
-
-    @Deprecated
-    public static String chessArrayToString(Chessman chessArray[], boolean positionMatrix[][]) {
-        StringBuffer sb = new StringBuffer();
-        sb.append("{ N='").append(positionMatrix.length).append("' M='")
-                .append(positionMatrix[0].length).append("' ");
-        for (Chessman cp : chessArray) {
-            sb.append("[ " + cp.getClass().getSimpleName() + " (").append(cp.getX()).append(",")
-                    .append(cp.getY()).append(")] ");
-        }
-        sb.append(" }");
-        return sb.toString();
-    }
-
-    @Deprecated
-    public static Chessman[] cloneChessArray(Chessman[] chessArray) {
-        Chessman[] newChessArray = new Chessman[chessArray.length];
-        for (int i = 0; i < newChessArray.length; i++) {
-            newChessArray[i] = (Chessman) chessArray[i].clone();
-        }
-        return newChessArray;
     }
 }

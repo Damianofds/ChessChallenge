@@ -1,4 +1,4 @@
-package it.fds.chesschallenge.model;
+package it.fds.chesschallenge.model.chessman;
 
 
 /**
@@ -12,11 +12,20 @@ public class Rook extends Chessman {
      */
     public Rook(int id) {
         super(id);
-        // TODO Auto-generated constructor stub
+    }
+    
+    /**
+     * @param i
+     * @param j
+     * @param k
+     */
+    public Rook(int id, int j, int k) {
+        super(id, j, k);
+        
     }
 
     /* (non-Javadoc)
-     * @see it.fds.chesschallenge.model.Chessman#move(boolean[][])
+     * @see it.fds.chesschallenge.model.chessman.Chessman#move(boolean[][])
      */
     @Override
     public boolean isThreatening(boolean[][] positionMatrix) {

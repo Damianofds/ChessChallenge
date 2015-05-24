@@ -1,6 +1,6 @@
-package it.fds.chesschallenge.utils;
+package it.fds.chesschallenge.model.configuration;
 
-import it.fds.chesschallenge.model.Chessman;
+import it.fds.chesschallenge.model.chessman.Chessman;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,12 +12,36 @@ import java.util.Map;
  * @author DamianoG
  *
  */
-public class HashConfigurationList<T> extends ArrayList<Chessman> {
+public class HashedConfiguration<T> extends ArrayList<Chessman> implements Configuration{
 
     private static final long serialVersionUID = -4740736867489924664L;
 
-    public HashConfigurationList(){
-        super();
+    public HashedConfiguration(){}
+    
+    /* (non-Javadoc)
+     * @see it.fds.chesschallenge.model.configuration.Configuration#getConfigurationUniqueID()
+     */
+    @Override
+    public int getConfigurationUniqueID() {
+        // TODO Auto-generated method stub
+        return hashCode();
+    }
+
+    /* (non-Javadoc)
+     * @see it.fds.chesschallenge.model.configuration.Configuration#getNumberOfElements()
+     */
+    @Override
+    public int getNumberOfElements() {
+        return this.size();
+    }
+    
+    @Override
+    public Object clone(){
+        Configuration clonedConfiguration = new HashedConfiguration<>();
+        for (Chessman cp : this) {
+            clonedConfiguration.add((Chessman) cp.clone());
+        }
+        return clonedConfiguration;
     }
     
     /**
@@ -76,7 +100,4 @@ public class HashConfigurationList<T> extends ArrayList<Chessman> {
         }
         return new Integer(stringToHash.toString().hashCode()).longValue();
     }
-    
-
-    
 }

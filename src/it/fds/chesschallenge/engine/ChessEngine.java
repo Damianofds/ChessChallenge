@@ -1,7 +1,8 @@
 package it.fds.chesschallenge.engine;
 
-import it.fds.chesschallenge.model.Chessman;
-import it.fds.chesschallenge.utils.HashConfigurationList;
+import it.fds.chesschallenge.model.chessman.Chessman;
+import it.fds.chesschallenge.model.configuration.Configuration;
+import it.fds.chesschallenge.model.configuration.HashedConfiguration;
 import it.fds.chesschallenge.utils.ChessboardUtils;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ChessEngine {
     /**
      * This list stores all the valid solutions found for the puzzle
      */
-    public List<HashConfigurationList<Chessman>> finalValidConfigsList;
+    public List<Configuration> finalValidConfigsList;
 
     /**
      * This map stores all the valid solutions found the solution i-esimo inductive step
@@ -59,18 +60,15 @@ public class ChessEngine {
 
     public int search() {
 
-        finalValidConfigsList = new ArrayList<>();
+        finalValidConfigsList = new ArrayList<Configuration>();
         countSolutions();
-//        System.out.println("\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
-//        System.out.println(finalValidConfigsList.toString());
-//        System.out.println("\n*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*\n");
         return finalValidConfigsList.size();
         
     }
 
     private void countSolutions() {
         // step0: add initial configuration: an empty list
-        HashConfigurationList<Chessman> emptyConfig = new HashConfigurationList<>();
+        HashedConfiguration<Chessman> emptyConfig = new HashedConfiguration<>();
         searchForNonThreateningConfigurations(emptyConfig, chessArray.length - 1);
     }
 
@@ -82,13 +80,13 @@ public class ChessEngine {
      * @param chessIndex
      */
     private void searchForNonThreateningConfigurations(
-            HashConfigurationList<Chessman> validConfig, int chessIndex) {
+            Configuration validConfig, int chessIndex) {
         Chessman cp = chessArray[chessIndex];
-        List<HashConfigurationList<Chessman>> validConfigs = new ArrayList<HashConfigurationList<Chessman>>();
+        List<Configuration> validConfigs = new ArrayList<Configuration>();
         for (int i = 0; i < boardWidth; i++) {
             for (int j = 0; j < boardHeight; j++) {
                 cp.setPos(i, j);
-                HashConfigurationList<Chessman> clonedConfig = ChessboardUtils.cloneChessArray(validConfig);
+                Configuration clonedConfig = (Configuration)validConfig.clone();
                 clonedConfig.add((Chessman) cp.clone());
                 boolean positionMatrix[][] = ChessboardUtils.configurePositionMatrix(clonedConfig,
                         boardWidth, boardHeight);
@@ -101,7 +99,7 @@ public class ChessEngine {
                         }
                     }
                     if (isThisConfigValid
-                            && updatedValidConfigsMap.get(chessIndex).add(clonedConfig.hashCode())) {
+                            && updatedValidConfigsMap.get(chessIndex).add(clonedConfig.getConfigurationUniqueID())) {
 
                         validConfigs.add(clonedConfig);
                         if (chessIndex == 0) {
@@ -116,7 +114,7 @@ public class ChessEngine {
             return;
         }
         // finalValidConfigsList;
-        for (HashConfigurationList<Chessman> config : validConfigs) {
+        for (Configuration config : validConfigs) {
             searchForNonThreateningConfigurations(config, chessIndex - 1);
         }
     }

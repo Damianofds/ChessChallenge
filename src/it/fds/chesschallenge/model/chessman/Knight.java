@@ -1,4 +1,4 @@
-package it.fds.chesschallenge.model;
+package it.fds.chesschallenge.model.chessman;
 
 
 /**
@@ -12,11 +12,19 @@ public class Knight extends Chessman {
      */
     public Knight(int id) {
         super(id);
-        // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param i
+     * @param j
+     * @param k
+     */
+    public Knight(int id, int j, int k) {
+        super(id, j, k);        
     }
 
     /* (non-Javadoc)
-     * @see it.fds.chesschallenge.model.Chessman#move(boolean[][])
+     * @see it.fds.chesschallenge.model.chessman.Chessman#move(boolean[][])
      */
     @Override
     public boolean isThreatening(boolean[][] positionMatrix) {
@@ -47,7 +55,7 @@ public class Knight extends Chessman {
     }
 
     /* (non-Javadoc)
-     * @see it.fds.chesschallenge.model.Chessman#checkForTreaths(boolean[][])
+     * @see it.fds.chesschallenge.model.chessman.Chessman#checkForTreaths(boolean[][])
      */
     private boolean checkForTreaths(int x, int y, boolean positionMatrix[][]) {
         int n = positionMatrix.length;

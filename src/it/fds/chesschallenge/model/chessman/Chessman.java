@@ -1,4 +1,4 @@
-package it.fds.chesschallenge.model;
+package it.fds.chesschallenge.model.chessman;
 
 
 
@@ -16,8 +16,22 @@ public abstract class Chessman implements Cloneable{
 
     protected int y;
 
+    /**
+     * @param id a unique identifier for this chessman
+     */
     protected Chessman(int id){
         this.id = id;
+    }
+
+    /**
+     * 
+     * @param id a unique identifier for this chessman
+     * @param x an initial horizontal chessman coordinate
+     * @param y an initial vertical chessman coordinate
+     */
+    protected Chessman(int id, int x, int y){
+        this.id = id;
+        setPos(x, y);
     }
     
     public abstract boolean isThreatening(boolean[][] positionMatrix);
