@@ -1,5 +1,7 @@
 package it.fds.chesschallenge.model.chessman;
 
+import it.fds.chesschallenge.model.chessboard.ChessBoard;
+
 
 /**
  * @author DamianoG
@@ -27,8 +29,8 @@ public class Knight extends Chessman {
      * @see it.fds.chesschallenge.model.chessman.Chessman#move(boolean[][])
      */
     @Override
-    public boolean isThreatening(boolean[][] positionMatrix) {
-        return checkAlongCircle(positionMatrix);
+    public boolean isThreatening(ChessBoard board) {
+        return checkAlongCircle(board);
     }
 
     /**
@@ -37,7 +39,7 @@ public class Knight extends Chessman {
      * @param positionMatrix the representation of the chessmen positions over the chessboard as a boolean matrix
      * @return true if at least one chessman is found on the checked tiles, false otherwise
      */
-    public boolean checkAlongCircle(boolean positionMatrix[][]){
+    public boolean checkAlongCircle(ChessBoard board){
         
         int positionsToCheck[][] = {
                 {x-2,y+1},{x-1,y+2}, //upper left side
@@ -46,7 +48,7 @@ public class Knight extends Chessman {
                 {x+2,y-1},{x+1,y-2} //lower right side
             };
         for(int i=0; i<8; i++){
-            if(checkForTreaths(positionsToCheck[i][0], positionsToCheck[i][1], positionMatrix)){
+            if(checkForTreaths(positionsToCheck[i][0], positionsToCheck[i][1], board)){
                 return true;
             }
         }
@@ -57,10 +59,8 @@ public class Knight extends Chessman {
     /* (non-Javadoc)
      * @see it.fds.chesschallenge.model.chessman.Chessman#checkForTreaths(boolean[][])
      */
-    private boolean checkForTreaths(int x, int y, boolean positionMatrix[][]) {
-        int n = positionMatrix.length;
-        int m = positionMatrix[0].length;
-        if(!isOutsideChessboard(x, y, n, m) && positionMatrix[x][y]){
+    private boolean checkForTreaths(int x, int y, ChessBoard board) {
+        if(!board.isOutsideBounds(x, y) && board.isOccupied(x, y)){
             return true;
         }
         return false;

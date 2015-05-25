@@ -19,18 +19,18 @@
  */
 package it.fds.chesschallenge.tests;
 
+import it.fds.chesschallenge.model.chessboard.ChessBoard;
+import it.fds.chesschallenge.model.chessboard.MatrixChessBoard;
 import it.fds.chesschallenge.model.chessman.Chessman;
 import it.fds.chesschallenge.model.chessman.Knight;
-import it.fds.chesschallenge.utils.ChessboardUtils;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * @author DamianoG
  *
  */
-public class ChessboardTest extends Assert{
+public class ChessboardTest extends BaseChessChallengeTest{
 
     
     /**
@@ -43,31 +43,32 @@ public class ChessboardTest extends Assert{
         
         for(int i=0; i<20; i++){
             for(int j=0; j<20; j++){
-                Integer[][] posArray = ChessboardUtils.buildPositionsArray(i, j);
+                ChessBoard board = new MatrixChessBoard(i, j);
+                Integer[][] posArray = buildPositionsArray(i, j);
                 // Check if the number of positions computed is correct
                 assertEquals(i*j, posArray.length);
                 
                 // Check if all the positions computed are inside the chessboard 
                 for(int c=0; c<posArray.length; c++){
                     cp.setPos(posArray[c]);
-                    assertFalse(cp.isOutsideChessboard(i, j));
+                    assertFalse(cp.isOutsideChessboard(board));
                 }
                 
                 // check positions outside of the chessboard but close to its margins
                 cp.setPos(-1, 0);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
                 cp.setPos(0, -1);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
                 cp.setPos(-1, -1);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
                 cp.setPos(i, j-1);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
                 cp.setPos(i-1, j);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
                 cp.setPos(i, j);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
                 cp.setPos(i+1, j-1);
-                assertTrue(cp.isOutsideChessboard(i, j));
+                assertTrue(cp.isOutsideChessboard(board));
             }
         }
     }

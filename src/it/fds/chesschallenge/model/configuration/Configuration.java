@@ -19,13 +19,14 @@
  */
 package it.fds.chesschallenge.model.configuration;
 
+import it.fds.chesschallenge.model.chessboard.ChessBoard;
 import it.fds.chesschallenge.model.chessman.Chessman;
 
 import java.util.Collection;
 
 /**
  * A Configuration is a set of chessmen.
- * A Chessman configuration is considered valid against a chessboard when none of the configuration elements threat any other configuration element.
+ * A Chessman configuration is considered valid against a {@link ChessBoard} when none of the configuration elements threat any other configuration element.
  *  
  * @author DamianoG
  *

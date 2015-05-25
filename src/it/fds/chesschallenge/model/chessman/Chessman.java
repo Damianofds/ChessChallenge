@@ -1,5 +1,7 @@
 package it.fds.chesschallenge.model.chessman;
 
+import it.fds.chesschallenge.model.chessboard.ChessBoard;
+
 
 
 /**
@@ -34,7 +36,7 @@ public abstract class Chessman implements Cloneable{
         setPos(x, y);
     }
     
-    public abstract boolean isThreatening(boolean[][] positionMatrix);
+    public abstract boolean isThreatening(ChessBoard board);
     
     /**
      * Checks if at least one more chessman is placed along the X or Y axes where <b>this</b> chessman is placed 
@@ -43,19 +45,22 @@ public abstract class Chessman implements Cloneable{
      * @param positionMatrix the representation of the chessmen positions over the chessboard as a boolean matrix
      * @return true if at least one chessman is found on the checked tiles, false otherwise
      */
-    public boolean checkXY(boolean goDeep, boolean positionMatrix[][]){
-        int n = positionMatrix.length;
-        int m = positionMatrix[0].length;
+    public boolean checkXY(boolean goDeep, ChessBoard board){
+        int n = board.getWidth();
+        int m = board.getHeight();
         if(!goDeep){
-            return (x+1<n && positionMatrix[x+1][y]) || (y+1<m && positionMatrix[x][y+1]) || (x-1>=0 && positionMatrix[x-1][y]) || (y-1>=0 && positionMatrix[x][y-1]);
+            return (!board.isOutsideBounds(x + 1, y) && board.isOccupied(x + 1, y))
+                    || (!board.isOutsideBounds(x, y + 1) && board.isOccupied(x, y + 1))
+                    || (!board.isOutsideBounds(x - 1, y) && board.isOccupied(x - 1, y))
+                    || (!board.isOutsideBounds(x, y - 1) && board.isOccupied(x, y - 1));
         }
         for(int i=0; i<n; i++){
-            if(i!=x && positionMatrix[i][y]){
+            if(i!=x && board.isOccupied(i, y)){
                 return true;
             }   
         }
         for(int i=0; i<m; i++){
-            if(i!=y && positionMatrix[x][i]){
+            if(i!=y && board.isOccupied(x, i)){
                 return true;
             }
         }
@@ -69,12 +74,12 @@ public abstract class Chessman implements Cloneable{
      * @param positionMatrix the representation of the chessmen positions over the chessboard as a boolean matrix
      * @return true if at least one chessman is found on the checked tiles, false otherwise
      */
-    public boolean checkDiagonal(boolean goDeep, boolean positionMatrix[][]){
-        int n = positionMatrix.length;
-        int m = positionMatrix[0].length;
+    public boolean checkDiagonal(boolean goDeep, ChessBoard board){
+        int n = board.getWidth();
+        int m = board.getHeight();
         
         for(int i=1; x-i>=0 && y-i>=0; i++){
-            if( positionMatrix[x-i][y-i] && x-i!=x && y-i!=y){
+            if( board.isOccupied(x-i, y-i) && i!=0){
                 return true;
             }
             if(!goDeep){
@@ -82,7 +87,7 @@ public abstract class Chessman implements Cloneable{
             }
         }
         for(int i=1; x+i<n && y+i<m; i++){
-            if( positionMatrix[x+i][y+i] && x+i!=x && y+i!=y){
+            if( board.isOccupied(x+i, y+i) && i!=0){
                 return true;
             }
             if(!goDeep){
@@ -90,7 +95,7 @@ public abstract class Chessman implements Cloneable{
             }
         }
         for(int i=1; x-i>=0 && y+i<m; i++){
-            if( positionMatrix[x-i][y+i] && x-i!=x && y+i!=y){
+            if( board.isOccupied(x-i, y+i) && i!=0){
                 return true;
             }
             if(!goDeep){
@@ -98,7 +103,7 @@ public abstract class Chessman implements Cloneable{
             }
         }
         for(int i=1; x+i<m && y-i>=0; i++){
-            if(positionMatrix[x+i][y-i] && x+i!=x && y-i!=y){
+            if(board.isOccupied(x+i, y-i) && i!=0){
                 return true;
             }
             if(!goDeep){
@@ -108,15 +113,8 @@ public abstract class Chessman implements Cloneable{
         return false;
     }
     
-    public boolean isOutsideChessboard(int n, int m){
-        return isOutsideChessboard(x, y, n, m);
-    }
-    
-    public boolean isOutsideChessboard(int x, int y, int n, int m){
-        if(x<0 || y<0 || x>=n || y>=m){
-            return true;
-        }
-        return false;
+    public boolean isOutsideChessboard(ChessBoard board){
+        return board.isOutsideBounds(this);
     }
     
     public int getId() {

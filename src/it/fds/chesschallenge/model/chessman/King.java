@@ -1,5 +1,7 @@
 package it.fds.chesschallenge.model.chessman;
 
+import it.fds.chesschallenge.model.chessboard.ChessBoard;
+
 
 /**
  * @author DamianoG
@@ -19,7 +21,7 @@ public class King extends Chessman{
      * @see it.fds.chesschallenge.model.chessman.Chessman#move(boolean[][])
      */
     @Override
-    public boolean isThreatening(boolean[][] positionMatrix) {
-        return checkXY(false, positionMatrix) || checkDiagonal(false, positionMatrix);
+    public boolean isThreatening(ChessBoard board) {
+        return checkXY(false, board) || checkDiagonal(false, board);
     }
 }

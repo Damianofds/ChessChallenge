@@ -1,6 +1,5 @@
 package it.fds.chesschallenge.tests;
 
-import junit.framework.Assert;
 import it.fds.chesschallenge.engine.ChessEngine;
 
 import org.junit.Ignore;
@@ -10,7 +9,7 @@ import org.junit.Test;
  * @author DamianoG
  * 
  */
-public class ChessChallengeTest extends Assert{
+public class ChessChallengeTest extends BaseChessChallengeTest{
 
     /**
      * Test the challenge engine against the configuration below
@@ -64,7 +63,7 @@ public class ChessChallengeTest extends Assert{
      *    <li>1 Knight<\li>
      * </ul>
      */
-//    @Ignore // It takes too much time
+    @Ignore // It takes too much time
     @Test
     public void test_7x7_7P() {
         int numRow = 7;
@@ -123,7 +122,7 @@ public class ChessChallengeTest extends Assert{
      * </ul>
      */
     @Ignore // It takes too much time
-//    @Test
+    @Test
     public void test_9Queens() {
         // int numRows, int numColumns, int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
         ChessEngine ce = new ChessEngine(9, 9, 0, 9, 0, 0, 0);

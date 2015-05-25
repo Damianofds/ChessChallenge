@@ -1,9 +1,15 @@
 package it.fds.chesschallenge.engine;
 
+import it.fds.chesschallenge.model.chessboard.ChessBoard;
+import it.fds.chesschallenge.model.chessboard.MatrixChessBoard;
+import it.fds.chesschallenge.model.chessman.Bishop;
 import it.fds.chesschallenge.model.chessman.Chessman;
+import it.fds.chesschallenge.model.chessman.King;
+import it.fds.chesschallenge.model.chessman.Knight;
+import it.fds.chesschallenge.model.chessman.Queen;
+import it.fds.chesschallenge.model.chessman.Rook;
 import it.fds.chesschallenge.model.configuration.Configuration;
 import it.fds.chesschallenge.model.configuration.HashedConfiguration;
-import it.fds.chesschallenge.utils.ChessboardUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +55,7 @@ public class ChessEngine {
             int numOfBishops, int numOfRooks, int numOfKnights) {
         this.boardWidth = boardWidth;
         this.boardHeight = boardHeight;
-        this.chessArray = ChessboardUtils.buildChessArray(numOfKings, numOfQueens, numOfBishops, numOfRooks, numOfKnights);
+        this.chessArray = buildChessArray(numOfKings, numOfQueens, numOfBishops, numOfRooks, numOfKnights);
         chessArraySize = chessArray.length;
         finalValidConfigsList = new ArrayList<>();
         updatedValidConfigsMap = new HashMap<>();
@@ -68,7 +74,7 @@ public class ChessEngine {
 
     private void countSolutions() {
         // step0: add initial configuration: an empty list
-        HashedConfiguration<Chessman> emptyConfig = new HashedConfiguration<>();
+        Configuration emptyConfig = new HashedConfiguration<>();
         searchForNonThreateningConfigurations(emptyConfig, chessArray.length - 1);
     }
 
@@ -88,25 +94,24 @@ public class ChessEngine {
                 cp.setPos(i, j);
                 Configuration clonedConfig = (Configuration)validConfig.clone();
                 clonedConfig.add((Chessman) cp.clone());
-                boolean positionMatrix[][] = ChessboardUtils.configurePositionMatrix(clonedConfig,
-                        boardWidth, boardHeight);
+                ChessBoard board = new MatrixChessBoard(boardWidth, boardHeight);
+                if (!board.initChessboard(clonedConfig)) {
+                    continue;
+                }
                 boolean isThisConfigValid = true;
-                if (positionMatrix != null) {
-                    for (Chessman ccp : clonedConfig) {
-                        if (ccp.isThreatening(positionMatrix)) {
-                            isThisConfigValid = false;
-                            break;
-                        }
+                for (Chessman ccp : clonedConfig) {
+                    if (ccp.isThreatening(board)) {
+                        isThisConfigValid = false;
+                        break;
                     }
-                    if (isThisConfigValid
-                            && updatedValidConfigsMap.get(chessIndex).add(clonedConfig.getConfigurationUniqueID())) {
+                }
+                if (isThisConfigValid
+                        && updatedValidConfigsMap.get(chessIndex).add(clonedConfig.getConfigurationUniqueID())) {
 
-                        validConfigs.add(clonedConfig);
-                        if (chessIndex == 0) {
-                            finalValidConfigsList.add(clonedConfig);
-                        }
+                    validConfigs.add(clonedConfig);
+                    if (chessIndex == 0) {
+                        finalValidConfigsList.add(clonedConfig);
                     }
-
                 }
             }
         }
@@ -119,16 +124,31 @@ public class ChessEngine {
         }
     }
 
-    public static void main(String [] args) {
-        
-        int numRow = 7;
-        int numCol = 7;
-        // int numOfKings, int numOfQueens, int numOfBishops, int numOfRooks, int numOfKnights
-        ChessEngine ce = new ChessEngine(numRow, numCol, 2, 2, 2, 0, 1);
-        long start = System.currentTimeMillis();
-        int numOfSolutions = ce.search();
-        long end = System.currentTimeMillis();
-        System.out.println("Processing Time: " + ((double)(end-start))/1000 + " seconds");
-        System.out.println("Number of solutions: '" + numOfSolutions + "'");
+    private Chessman[] buildChessArray(int numOfKings, int numOfQueens, int numOfBishops,
+            int numOfRooks, int numOfKnights) {
+        Chessman[] chessArray = new Chessman[numOfKings + numOfQueens + numOfBishops + numOfRooks
+                + numOfKnights];
+        int threshold = numOfKings;
+        int i = 0;
+        for (; i < threshold; i++) {
+            chessArray[i] = new King(i);
+        }
+        threshold += numOfQueens;
+        for (; i < threshold; i++) {
+            chessArray[i] = new Queen(i + threshold);
+        }
+        threshold += numOfBishops;
+        for (; i < threshold; i++) {
+            chessArray[i] = new Bishop(i + threshold);
+        }
+        threshold += numOfRooks;
+        for (; i < threshold; i++) {
+            chessArray[i] = new Rook(i + threshold);
+        }
+        threshold += numOfKnights;
+        for (; i < threshold; i++) {
+            chessArray[i] = new Knight(i + threshold);
+        }
+        return chessArray;
     }
 }

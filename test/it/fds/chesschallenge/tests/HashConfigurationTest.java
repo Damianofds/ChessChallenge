@@ -1,8 +1,5 @@
 package it.fds.chesschallenge.tests;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import it.fds.chesschallenge.model.chessman.Bishop;
 import it.fds.chesschallenge.model.chessman.Chessman;
 import it.fds.chesschallenge.model.chessman.King;
@@ -12,14 +9,16 @@ import it.fds.chesschallenge.model.chessman.Rook;
 import it.fds.chesschallenge.model.configuration.Configuration;
 import it.fds.chesschallenge.model.configuration.HashedConfiguration;
 
-import org.junit.Assert;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 /**
  * @author DamianoG
  * 
  */
-public class HashConfigurationTest extends Assert {
+public class HashConfigurationTest extends BaseChessChallengeTest {
 
     /**
      * Compute the hashcode for configurations made selecting n of the 8 chessman created and check for equalities and differences
