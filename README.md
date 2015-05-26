@@ -10,3 +10,9 @@ A solution to a generalized 8 queens puzzle
 * Run the tests or the class ChessEngine
 
 a jdk/jre7 or later is required to build/run the project
+
+## Documentation
+
+Read [this wiki page](https://github.com/f-ds/ChessChallenge/wiki/Overview-and-some-Implementation-details) for the problem definition, implementation details and resources.
+
+[Here](https://github.com/f-ds/ChessChallenge/wiki/ChessChallenge-output) is the output of the program for the requested solution
